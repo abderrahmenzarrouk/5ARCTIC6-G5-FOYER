@@ -3,14 +3,14 @@ pipeline {
 
     environment {
         GIT_REPO = 'https://github.com/abderrahmenzarrouk/5ARCTIC6-G5-FOYER/tree/AbderrahmenZarrouk-5Arctic6-G5'
-        BRANCH = 'AbderrahmenZarrouk-5Arctic6-G5' // You can change this to the branch you want to monitor
+        BRANCH = 'AbderrahmenZarrouk-5Arctic6-G5'
     }
 
     stages {
         stage('Checkout') {
             steps {
                 echo 'Cloning GitHub repository...'
-                git branch: "${BRANCH}", url: "${GIT_REPO}"
+                git branch: 'AbderrahmenZarrouk-5Arctic6-G5', credentialsId: 'github', url: 'https://github.com/abderrahmenzarrouk/5ARCTIC6-G5-FOYER/tree/AbderrahmenZarrouk-5Arctic6-G5'
             }
         }
 
