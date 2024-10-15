@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        GIT_REPO = 'https://github.com/abderrahmenzarrouk/5ARCTIC6-G5-FOYER/tree/AbderrahmenZarrouk-5Arctic6-G5'
+        GIT_REPO = 'https://github.com/abderrahmenzarrouk/5ARCTIC6-G5-FOYER.git'
         BRANCH = 'AbderrahmenZarrouk-5Arctic6-G5'
     }
 
@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Cloning GitHub repository...'
-                git branch: 'AbderrahmenZarrouk-5Arctic6-G5', credentialsId: 'github', url: 'https://github.com/abderrahmenzarrouk/5ARCTIC6-G5-FOYER/tree/AbderrahmenZarrouk-5Arctic6-G5'
+                git branch: "${BRANCH}", url: "${GIT_REPO}"
             }
         }
 
