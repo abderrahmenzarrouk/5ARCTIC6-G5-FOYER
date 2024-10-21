@@ -15,6 +15,11 @@
     <description>Foyer</description>
     <properties>
         <java.version>17</java.version>
+        <sonar.projectName>devops-project</sonar.projectName>
+        <sonar.projectVersion>1.0</sonar.projectVersion>
+        <sonar.sources>src/main/java</sonar.sources>
+        <sonar.host.url>http://192.168.100.203:9000</sonar.host.url> <!-- Adjust URL as necessary -->
+        <sonar.login>sqp_8f80e3198727d7246e4418da26e76ea410f1ba0d</sonar.login>
     </properties>
     <dependencies>
         <dependency>
