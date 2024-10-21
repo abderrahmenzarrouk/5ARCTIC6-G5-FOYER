@@ -34,6 +34,13 @@ pipeline {
             }
         }
 
+        stage('Run Unit Tests') {
+            steps {
+                echo 'Running unit tests...'
+                sh 'mvn test'
+            }
+        }
+
         stage("Build & Push Docker Image") {
             steps {
                 script {
