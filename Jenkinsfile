@@ -51,7 +51,7 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv('sonarqubetoken') {
-                        sh 'mvn sonar:sonar -Dsonar.jacoco.reportPaths=target/jacoco.exec'
+                        sh 'mvn sonar:sonar'
                     }
                 }
             }
