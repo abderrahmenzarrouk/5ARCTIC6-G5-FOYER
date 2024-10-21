@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         APP_NAME = "projetdevops"
+        RELEASE = "1.0.0"
         GIT_REPO = 'https://github.com/abderrahmenzarrouk/5ARCTIC6-G5-FOYER.git'
         BRANCH = 'AbderrahmenZarrouk-5Arctic6-G5'
         DOCKER_USER = "zarroukabderrahmen"
