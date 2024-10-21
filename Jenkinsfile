@@ -54,7 +54,7 @@ pipeline {
     post {
         failure {
             echo 'Build failed, sending email...'
-            mail to: 'zarrouk.abderrhmen@gmail.com',
+            mail to: 'exautique@gmail.com',
                  subject: "Build Failed: ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
                  body: "Build ${env.BUILD_NUMBER} failed for ${env.JOB_NAME}. Check the logs at ${env.BUILD_URL}"
         }
