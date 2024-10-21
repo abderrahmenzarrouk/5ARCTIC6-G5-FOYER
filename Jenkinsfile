@@ -41,15 +41,20 @@ pipeline {
             }
         }
 
-        stage("Sonarqube Analysis") {
+        stage("Test and Code Coverage") {
+            steps {
+                sh 'mvn clean verify jacoco:report'
+            }
+        }
+
+        stage("SonarQube Analysis") {
             steps {
                 script {
-                    withSonarQubeEnv(credentialsId: 'sonarqubetoken') {
-                        sh "mvn sonar:sonar"
+                    withSonarQubeEnv('sonarqubetoken') {
+                        sh 'mvn sonar:sonar -Dsonar.jacoco.reportPaths=target/jacoco.exec'
                     }
                 }
             }
-
         }
 
         stage("Build & Push Docker Image") {
