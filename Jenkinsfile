@@ -50,8 +50,8 @@ pipeline {
         stage("SonarQube Analysis") {
             steps {
                 script {
-                    withSonarQubeEnv('sonarqubetoken') {
-                        sh 'mvn sonar:sonar'
+                    withSonarQubeEnv(credentialsId: 'sonarqubetoken') {
+                        sh 'mvn sonar:sonar -Dsonar.jacoco.reportPaths=target/jacoco.exec'
                     }
                 }
             }
