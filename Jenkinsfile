@@ -72,6 +72,21 @@ pipeline {
             }
 
         }
+        stage("Create Spring Boot Container") {
+            steps {
+                script {
+                    sh """
+                    docker create \
+                        --name spring-boot-app \
+                        -e SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/foyer \
+                        -e SPRING_DATASOURCE_USERNAME=springuser \
+                        -e SPRING_DATASOURCE_PASSWORD=springpassword \
+                        -p 8081:8081 \
+                        ${IMAGE_NAME}:${IMAGE_TAG}
+                    """
+                }
+            }
+        }
     }
 
     post {
