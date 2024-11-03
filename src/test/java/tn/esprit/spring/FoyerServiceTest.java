@@ -79,12 +79,20 @@ class FoyerServiceTest {
 
     @Test
     void testAffecterFoyerAUniversite() {
+        // Prepare the blocs list before the test
+        foyer.setBlocs(new ArrayList<>()); // Initialize blocs in the test
+
         when(foyerRepository.findById(1L)).thenReturn(Optional.of(foyer));
         when(universiteRepository.findByNomUniversite("University A")).thenReturn(universite);
+
+        // Ensure the universite is saved correctly
         when(universiteRepository.save(universite)).thenReturn(universite);
+
         Universite result = foyerService.affecterFoyerAUniversite(1L, "University A");
+
+        // Check that the expected values are set correctly
         assertEquals(universite, result);
-        assertEquals(foyer, result.getFoyer());
+        assertEquals(foyer, result.getFoyer()); // This should not be null if the association was set
     }
 
     @Test
