@@ -2,6 +2,7 @@ package tn.esprit.spring;
 
 
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tn.esprit.spring.DAO.Entities.Bloc;
@@ -9,7 +10,6 @@ import tn.esprit.spring.DAO.Entities.Chambre;
 import tn.esprit.spring.DAO.Entities.Foyer;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 
 class BlocTest {
 
@@ -32,25 +32,34 @@ class BlocTest {
     }
 
     @Test
-    void testAddChambre() {
-        Chambre chambre = new Chambre();
-        chambre.setBloc(bloc);
-        bloc.getChambres().add(chambre);
-
-        assertEquals(1, bloc.getChambres().size());
-        assertTrue(bloc.getChambres().contains(chambre));
+    void testSetNomBloc() {
+        bloc.setNomBloc("Bloc B");
+        assertEquals("Bloc B", bloc.getNomBloc());
     }
 
     @Test
-    void testRemoveChambre() {
-        Chambre chambre = new Chambre();
-        chambre.setBloc(bloc);
-        bloc.getChambres().add(chambre);
-        assertEquals(1, bloc.getChambres().size());
+    void testSetCapaciteBloc() {
+        bloc.setCapaciteBloc(150);
+        assertEquals(150, bloc.getCapaciteBloc());
+    }
 
-        bloc.getChambres().remove(chambre);
+    @Test
+    void testChambresListInitialization() {
+        Bloc newBloc = new Bloc();
+        assertNotNull(newBloc.getChambres());
+        assertTrue(newBloc.getChambres().isEmpty());
+    }
+
+    @Test
+    void testClearChambresList() {
+        Chambre chambre1 = new Chambre();
+        Chambre chambre2 = new Chambre();
+        bloc.getChambres().add(chambre1);
+        bloc.getChambres().add(chambre2);
+        assertEquals(2, bloc.getChambres().size());
+
+        bloc.getChambres().clear();
         assertEquals(0, bloc.getChambres().size());
-        assertFalse(bloc.getChambres().contains(chambre));
     }
 
     @Test
@@ -63,8 +72,6 @@ class BlocTest {
 
     @Test
     void testBlocIdGeneration() {
-
         assertEquals(0, bloc.getIdBloc());
     }
 }
-
