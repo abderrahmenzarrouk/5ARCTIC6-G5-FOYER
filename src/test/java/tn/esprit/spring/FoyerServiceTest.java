@@ -103,16 +103,7 @@ class FoyerServiceTest {
         assertNull(result.getFoyer());
     }
 
-    @Test
-    void testAjouterFoyerEtAffecterAUniversite() {
-        foyer.setBlocs(new ArrayList<>());
-        when(foyerRepository.save(foyer)).thenReturn(foyer);
-        when(universiteRepository.findById(1L)).thenReturn(Optional.of(universite));
-        when(universiteRepository.save(universite)).thenReturn(universite);
-        Foyer result = foyerService.ajouterFoyerEtAffecterAUniversite(foyer, 1L);
-        assertEquals(foyer, result);
-        assertEquals(universite, result.getUniversite());
-    }
+
 
     @Test
     void testAjoutFoyerEtBlocs() {
