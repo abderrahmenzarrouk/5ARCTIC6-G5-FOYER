@@ -1,6 +1,5 @@
 package tn.esprit.spring;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,6 +14,7 @@ import tn.esprit.spring.Services.Chambre.ChambreService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -71,6 +71,14 @@ class ChambreServiceTest {
     }
 
     @Test
+    void testFindById_NotFound() {
+        when(chambreRepository.findById(1L)).thenReturn(Optional.empty());
+        assertThrows(NoSuchElementException.class, () -> {
+            chambreService.findById(1L);
+        });
+    }
+
+    @Test
     void testDeleteById() {
         chambreService.deleteById(1L);
         verify(chambreRepository, times(1)).deleteById(1L);
@@ -87,7 +95,34 @@ class ChambreServiceTest {
         when(chambreRepository.findByBlocNomBloc("Bloc A")).thenReturn(List.of(chambre));
         List<Chambre> result = chambreService.getChambresParNomBloc("Bloc A");
         assertEquals(1, result.size());
+        assertEquals(chambre, result.get(0));
     }
 
 
+
+    @Test
+    void testListeChambresParBloc() {
+        // You can add a test for the logging in this method
+        // Since logging is not captured in standard assertions,
+        // consider refactoring the method to return a list for testing purposes.
+    }
+
+    @Test
+    void testPourcentageChambreParTypeChambre() {
+        when(chambreRepository.count()).thenReturn(100L);
+        when(chambreRepository.countChambreByTypeC(TypeChambre.SIMPLE)).thenReturn(30L);
+        when(chambreRepository.countChambreByTypeC(TypeChambre.DOUBLE)).thenReturn(40L);
+        when(chambreRepository.countChambreByTypeC(TypeChambre.TRIPLE)).thenReturn(30L);
+
+        // This will log the percentages, you can capture logs or just check that the methods were called
+        chambreService.pourcentageChambreParTypeChambre();
+
+        // You may also verify if the expected methods were called on chambreRepository
+        verify(chambreRepository, times(1)).count();
+        verify(chambreRepository, times(1)).countChambreByTypeC(TypeChambre.SIMPLE);
+        verify(chambreRepository, times(1)).countChambreByTypeC(TypeChambre.DOUBLE);
+        verify(chambreRepository, times(1)).countChambreByTypeC(TypeChambre.TRIPLE);
+    }
+
+    // Additional tests for more methods in ChambreService can be added here...
 }
