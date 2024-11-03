@@ -13,6 +13,7 @@ import tn.esprit.spring.DAO.Repositories.FoyerRepository;
 import tn.esprit.spring.DAO.Repositories.UniversiteRepository;
 import tn.esprit.spring.Services.Foyer.FoyerService;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -96,6 +97,7 @@ class FoyerServiceTest {
 
     @Test
     void testAjouterFoyerEtAffecterAUniversite() {
+        foyer.setBlocs(new ArrayList<>());
         when(foyerRepository.save(foyer)).thenReturn(foyer);
         when(universiteRepository.findById(1L)).thenReturn(Optional.of(universite));
         when(universiteRepository.save(universite)).thenReturn(universite);
@@ -106,6 +108,7 @@ class FoyerServiceTest {
 
     @Test
     void testAjoutFoyerEtBlocs() {
+        foyer.setBlocs(new ArrayList<>());
         when(foyerRepository.save(foyer)).thenReturn(foyer);
         Foyer result = foyerService.ajoutFoyerEtBlocs(foyer);
         assertEquals(foyer, result);
