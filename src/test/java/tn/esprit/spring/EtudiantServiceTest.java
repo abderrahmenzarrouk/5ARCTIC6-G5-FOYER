@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.dao.EmptyResultDataAccessException;
 import tn.esprit.spring.DAO.Entities.Etudiant;
 import tn.esprit.spring.DAO.Repositories.EtudiantRepository;
 import tn.esprit.spring.Services.Etudiant.EtudiantService;
@@ -89,5 +90,58 @@ class EtudiantServiceTest {
         etudiantService.delete(etudiant);
 
         verify(etudiantRepository, times(1)).delete(etudiant);
+    }
+
+    @Test
+    void testAddOrUpdate_NullEtudiant() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            etudiantService.addOrUpdate(null);
+        });
+    }
+
+    @Test
+    void testFindById_NotFound() {
+        when(etudiantRepository.findById(99L)).thenReturn(Optional.empty());
+
+        Etudiant result = etudiantService.findById(99L);
+
+        assertNull(result);
+    }
+
+    @Test
+    void testFindAll_EmptyList() {
+        when(etudiantRepository.findAll()).thenReturn(new ArrayList<>());
+
+        List<Etudiant> result = etudiantService.findAll();
+
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void testDeleteById_NotFound() {
+        doThrow(new EmptyResultDataAccessException(1)).when(etudiantRepository).deleteById(99L);
+
+        assertThrows(EmptyResultDataAccessException.class, () -> {
+            etudiantService.deleteById(99L);
+        });
+    }
+    @Test
+    void testDelete_NonExistentEtudiant() {
+        doThrow(new IllegalArgumentException()).when(etudiantRepository).delete(any(Etudiant.class));
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            etudiantService.delete(etudiant);
+        });
+    }
+
+    @Test
+    void testAddOrUpdate_UpdateExisting() {
+        when(etudiantRepository.save(etudiant)).thenReturn(etudiant);
+
+        etudiant.setNomEt("UpdatedName");
+        Etudiant result = etudiantService.addOrUpdate(etudiant);
+
+        assertNotNull(result);
+        assertEquals("UpdatedName", result.getNomEt());
     }
 }
