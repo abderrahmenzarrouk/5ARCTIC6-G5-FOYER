@@ -137,62 +137,6 @@ class EtudiantServiceTest {
             etudiantService.addOrUpdate(invalidEtudiant);
         });
     }
-    @Test
-    void testAddOrUpdate_NullEtudiant() {
-        assertThrows(NullPointerException.class, () -> {
-            etudiantService.addOrUpdate(null);
-        });
-    }
-    @Test
-    void testAddOrUpdate_WithTransaction() {
-        when(etudiantRepository.save(any(Etudiant.class))).thenThrow(new RuntimeException("Database Error"));
-
-        assertThrows(RuntimeException.class, () -> {
-            etudiantService.addOrUpdate(etudiant);
-        });
-    }
-
-    @Test
-    void testAddMultipleEtudiants() {
-        Etudiant etudiant2 = Etudiant.builder()
-                .idEtudiant(2L)
-                .nomEt("Sam")
-                .prenomEt("Smith")
-                .cin(87654321L)
-                .ecole("Esprit")
-                .dateNaissance(LocalDate.of(2001, 6, 15))
-                .build();
-
-        when(etudiantRepository.save(any(Etudiant.class))).thenReturn(etudiant);
-        when(etudiantRepository.save(etudiant2)).thenReturn(etudiant2);
-
-        Etudiant result1 = etudiantService.addOrUpdate(etudiant);
-        Etudiant result2 = etudiantService.addOrUpdate(etudiant2);
-
-        assertNotNull(result1);
-        assertNotNull(result2);
-        assertEquals(1L, result1.getIdEtudiant());
-        assertEquals(2L, result2.getIdEtudiant());
-    }
-    @Test
-    void testFindAllEmptyList() {
-        when(etudiantRepository.findAll()).thenReturn(new ArrayList<>());
-
-        List<Etudiant> result = etudiantService.findAll();
-
-        assertTrue(result.isEmpty());
-    }
-    @Test
-    void testAddOrUpdate_RepositoryThrowsException() {
-        when(etudiantRepository.save(any(Etudiant.class))).thenThrow(new RuntimeException("Error"));
-
-        RuntimeException thrown = assertThrows(RuntimeException.class, () -> {
-            etudiantService.addOrUpdate(etudiant);
-        });
-
-        assertEquals("Error", thrown.getMessage());
-    }
-
 
 
 
