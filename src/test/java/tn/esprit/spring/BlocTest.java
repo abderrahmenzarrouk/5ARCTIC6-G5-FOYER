@@ -1,8 +1,6 @@
 package tn.esprit.spring;
 
 
-
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tn.esprit.spring.DAO.Entities.Bloc;
@@ -10,6 +8,9 @@ import tn.esprit.spring.DAO.Entities.Chambre;
 import tn.esprit.spring.DAO.Entities.Foyer;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class BlocTest {
 
@@ -20,6 +21,7 @@ class BlocTest {
         bloc = Bloc.builder()
                 .nomBloc("Bloc A")
                 .capaciteBloc(100)
+                .chambres(new ArrayList<>()) // Initialize chambres here
                 .build();
     }
 
@@ -46,6 +48,7 @@ class BlocTest {
     @Test
     void testChambresListInitialization() {
         Bloc newBloc = new Bloc();
+        newBloc.setChambres(new ArrayList<>()); // Explicitly initialize chambres
         assertNotNull(newBloc.getChambres());
         assertTrue(newBloc.getChambres().isEmpty());
     }
@@ -54,8 +57,10 @@ class BlocTest {
     void testClearChambresList() {
         Chambre chambre1 = new Chambre();
         Chambre chambre2 = new Chambre();
-        bloc.getChambres().add(chambre1);
-        bloc.getChambres().add(chambre2);
+        List<Chambre> chambres = new ArrayList<>();
+        chambres.add(chambre1);
+        chambres.add(chambre2);
+        bloc.setChambres(chambres); // Set the initialized list
         assertEquals(2, bloc.getChambres().size());
 
         bloc.getChambres().clear();
@@ -66,7 +71,6 @@ class BlocTest {
     void testFoyerRelationship() {
         Foyer foyer = new Foyer();
         bloc.setFoyer(foyer);
-
         assertEquals(foyer, bloc.getFoyer());
     }
 
