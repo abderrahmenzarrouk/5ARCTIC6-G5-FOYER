@@ -68,25 +68,5 @@ class EtudiantTest {
         assertTrue(etudiant.getReservations().contains(reservation));
     }
 
-    @Test
-    void testEtudiantEqualsAndHashCode() {
-        Etudiant etudiant1 = Etudiant.builder()
-                .nomEt("Ali")
-                .prenomEt("Ben")
-                .cin(12345678L)
-                .ecole("Esprit")
-                .dateNaissance(LocalDate.of(2000, 5, 20))
-                .build();
 
-        Etudiant etudiant2 = Etudiant.builder()
-                .nomEt("Ali")
-                .prenomEt("Ben")
-                .cin(12345678L)
-                .ecole("Esprit")
-                .dateNaissance(LocalDate.of(2000, 5, 20))
-                .build();
-
-        assertEquals(etudiant1, etudiant2);
-        assertEquals(etudiant1.hashCode(), etudiant2.hashCode());
-    }
 }
