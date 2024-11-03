@@ -8,6 +8,7 @@ import tn.esprit.spring.DAO.Entities.Universite;
 import tn.esprit.spring.DAO.Repositories.UniversiteRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -29,7 +30,11 @@ public class UniversiteService implements IUniversiteService {
     public Universite findById(long id) {
 
         Optional<Universite> u =  repo.findById(id);
-        return u.get();
+        if (u.isPresent()) {
+            return u.get();
+        } else {
+            throw new NoSuchElementException("universite not found with id: " + id);
+        }
     }
 
     @Override

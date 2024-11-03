@@ -13,6 +13,7 @@ import tn.esprit.spring.DAO.Repositories.ChambreRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -36,7 +37,11 @@ public class ChambreService implements IChambreService {
     public Chambre findById(long id) {
 
         Optional<Chambre> c =  repo.findById(id);
-        return c.get();
+        if (c.isPresent()) {
+            return c.get();
+        } else {
+            throw new NoSuchElementException("Chambre not found with id: " + id);
+        }
     }
 
     @Override

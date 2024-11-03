@@ -13,6 +13,7 @@ import tn.esprit.spring.Services.Etudiant.EtudiantService;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -90,6 +91,17 @@ class EtudiantServiceTest {
         etudiantService.delete(etudiant);
 
         verify(etudiantRepository, times(1)).delete(etudiant);
+    }
+
+    @Test
+    void testFindById_NotFound() {
+        when(etudiantRepository.findById(1L)).thenReturn(Optional.empty());
+
+        NoSuchElementException thrown = assertThrows(NoSuchElementException.class, () -> {
+            etudiantService.findById(1L);
+        });
+
+        assertEquals("etudiant not found with id: 1", thrown.getMessage());
     }
 
 

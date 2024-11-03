@@ -15,6 +15,7 @@ import tn.esprit.spring.DAO.Repositories.ReservationRepository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -39,7 +40,11 @@ public class ReservationService implements IReservationService {
     public Reservation findById(String id) {
 
         Optional<Reservation> r =  repo.findById(id);
-        return r.get();
+        if (r.isPresent()) {
+            return r.get();
+        } else {
+            throw new NoSuchElementException("reservation not found with id: " + id);
+        }
     }
 
     @Override

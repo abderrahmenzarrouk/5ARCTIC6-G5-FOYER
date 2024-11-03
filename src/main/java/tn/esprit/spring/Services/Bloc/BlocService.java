@@ -11,6 +11,7 @@ import tn.esprit.spring.DAO.Repositories.FoyerRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -50,7 +51,11 @@ public class BlocService implements IBlocService {
     @Override
     public Bloc findById(long id) {
          Optional<Bloc> optionalBloc = repo.findById(id);
-         return  optionalBloc.get();
+        if (optionalBloc.isPresent()) {
+            return optionalBloc.get();
+        } else {
+            throw new NoSuchElementException("Chambre not found with id: " + id);
+        }
     }
 
     @Override
