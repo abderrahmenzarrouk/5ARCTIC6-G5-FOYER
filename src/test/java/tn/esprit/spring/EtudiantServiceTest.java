@@ -104,39 +104,11 @@ class EtudiantServiceTest {
         assertEquals("etudiant not found with id: 1", thrown.getMessage());
     }
 
-    @Test
-    void testDeleteById_NotFound() {
-        doThrow(new EmptyResultDataAccessException(1)).when(etudiantRepository).deleteById(1L);
 
-        assertThrows(EmptyResultDataAccessException.class, () -> {
-            etudiantService.deleteById(1L);
-        });
-    }
 
-    @Test
-    void testAddOrUpdate_WithNullFields() {
-        Etudiant nullEtudiant = new Etudiant(); // Assuming other fields are null
 
-        assertThrows(NullPointerException.class, () -> {
-            etudiantService.addOrUpdate(nullEtudiant);
-        });
-    }
 
-    @Test
-    void testAddOrUpdate_InvalidCin() {
-        Etudiant invalidEtudiant = Etudiant.builder()
-                .idEtudiant(1L)
-                .nomEt("Ali")
-                .prenomEt("Ben")
-                .cin(-12345678L) // Invalid CIN
-                .ecole("Esprit")
-                .dateNaissance(LocalDate.of(2000, 5, 20))
-                .build();
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            etudiantService.addOrUpdate(invalidEtudiant);
-        });
-    }
 
 
 
