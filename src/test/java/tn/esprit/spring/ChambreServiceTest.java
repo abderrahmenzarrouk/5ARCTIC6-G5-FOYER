@@ -100,12 +100,7 @@ class ChambreServiceTest {
 
 
 
-    @Test
-    void testListeChambresParBloc() {
-        // You can add a test for the logging in this method
-        // Since logging is not captured in standard assertions,
-        // consider refactoring the method to return a list for testing purposes.
-    }
+
 
     @Test
     void testPourcentageChambreParTypeChambre() {
