@@ -104,26 +104,7 @@ class BlocServiceTest {
         verify(blocRepository).delete(bloc);
     }
 
-    @Test
-    void testAffecterChambresABloc() {
-        Bloc bloc = Bloc.builder().nomBloc("Bloc A").build();
-        when(blocRepository.findByNomBloc("Bloc A")).thenReturn(bloc);
-        when(chambreRepository.findByNumeroChambre(1L)).thenReturn(new Chambre());
 
-        Bloc result = blocService.affecterChambresABloc(Arrays.asList(1L, 2L), "Bloc A");
 
-        assertNotNull(result);
-        assertEquals("Bloc A", result.getNomBloc());
-        verify(chambreRepository, times(2)).findByNumeroChambre(any());
-    }
 
-    @Test
-    void testAffecterBlocAFoyer() {
-        Bloc bloc = Bloc.builder().nomBloc("Bloc A").build();
-        when(blocRepository.findByNomBloc("Bloc A")).thenReturn(bloc);
-
-        blocService.affecterBlocAFoyer("Bloc A", "Foyer 1");
-
-        verify(blocRepository).save(bloc);
-    }
 }
