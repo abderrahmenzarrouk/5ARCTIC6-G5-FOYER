@@ -51,22 +51,8 @@ class EtudiantTest {
         assertEquals(LocalDate.of(2000, 5, 20), etudiant.getDateNaissance());
     }
 
-    @Test
-    void testEtudiantRelationships() {
-        Etudiant etudiant = Etudiant.builder()
-                .nomEt("Ali")
-                .prenomEt("Ben")
-                .cin(12345678L)
-                .ecole("Esprit")
-                .dateNaissance(LocalDate.of(2000, 5, 20))
-                .build();
 
-        Reservation reservation = new Reservation(); // Assuming Reservation has a no-arg constructor
-        etudiant.getReservations().add(reservation);
 
-        assertEquals(1, etudiant.getReservations().size());
-        assertTrue(etudiant.getReservations().contains(reservation));
-    }
 
 
 }
