@@ -30,20 +30,20 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project'
-                sh 'mvn package'
+                sh 'mvn package -Dspring.profiles.active=test'
             }
         }
 
         stage('Run Unit Tests') {
             steps {
                 echo 'Running unit tests...'
-                sh 'mvn test'
+                sh 'mvn test -Dspring.profiles.active=test'
             }
         }
 
         stage("Test and Code Coverage") {
             steps {
-                sh 'mvn clean verify jacoco:report'
+                sh 'mvn clean verify jacoco:report -Dspring.profiles.active=test'
             }
         }
 
@@ -51,7 +51,7 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv(credentialsId: 'sonarqubetoken') {
-                        sh 'mvn sonar:sonar -Dsonar.jacoco.reportPaths=target/jacoco.exec'
+                        sh 'mvn sonar:sonar -Dspring.profiles.active=test -Dsonar.jacoco.reportPaths=target/jacoco.exec'
                     }
                 }
             }
@@ -71,21 +71,6 @@ pipeline {
                 }
             }
 
-        }
-        stage("Create Spring Boot Container") {
-            steps {
-                script {
-                    sh """
-                    docker create \
-                        --name spring-boot-app \
-                        -e SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/foyer \
-                        -e SPRING_DATASOURCE_USERNAME=springuser \
-                        -e SPRING_DATASOURCE_PASSWORD=springpassword \
-                        -p 8081:8081 \
-                        ${IMAGE_NAME}:${IMAGE_TAG}
-                    """
-                }
-            }
         }
     }
 
