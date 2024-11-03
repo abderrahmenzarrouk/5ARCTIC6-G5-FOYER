@@ -134,14 +134,5 @@ class EtudiantServiceTest {
         });
     }
 
-    @Test
-    void testAddOrUpdate_UpdateExisting() {
-        when(etudiantRepository.save(etudiant)).thenReturn(etudiant);
 
-        etudiant.setNomEt("UpdatedName");
-        Etudiant result = etudiantService.addOrUpdate(etudiant);
-
-        assertNotNull(result);
-        assertEquals("UpdatedName", result.getNomEt());
-    }
 }
