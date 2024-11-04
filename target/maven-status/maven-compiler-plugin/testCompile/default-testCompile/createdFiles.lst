@@ -1,7 +1,3 @@
-tn\esprit\spring\DAO\Repositories\IFoyerService.class
+FoyerServiceTestUnitaire.class
 tn\esprit\spring\FoyerApplication.class
 tn\esprit\spring\Services\Foyer\FoyerServiceTest.class
-tn\esprit\spring\DAO\Entities\Foyer.class
-tn\esprit\spring\DAO\Repositories\FoyerService.class
-tn\esprit\spring\DAO\Entities\Foyer$FoyerBuilder.class
-FoyerServiceTestUnitaire.class
