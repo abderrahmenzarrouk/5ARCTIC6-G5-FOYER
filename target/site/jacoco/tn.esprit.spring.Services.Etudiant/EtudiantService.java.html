@@ -6,35 +6,43 @@ import tn.esprit.spring.DAO.Entities.Etudiant;
 import tn.esprit.spring.DAO.Repositories.EtudiantRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
-<span class="fc" id="L11">@AllArgsConstructor</span>
+<span class="nc" id="L13">@AllArgsConstructor</span>
 public class EtudiantService implements IEtudiantService {
     EtudiantRepository repo;
 
     @Override
     public Etudiant addOrUpdate(Etudiant e) {
-<span class="fc" id="L17">        return repo.save(e);</span>
+<span class="nc" id="L19">        return repo.save(e);</span>
     }
 
     @Override
     public List&lt;Etudiant&gt; findAll() {
-<span class="fc" id="L22">        return repo.findAll();</span>
+<span class="nc" id="L24">        return repo.findAll();</span>
     }
 
     @Override
     public Etudiant findById(long id) {
-<span class="fc" id="L27">        return repo.findById(id).get();</span>
+
+<span class="nc" id="L30">        Optional&lt;Etudiant&gt; e = repo.findById(id);</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if (e.isPresent()) {</span>
+<span class="nc" id="L32">            return e.get();</span>
+        } else {
+<span class="nc" id="L34">            throw new NoSuchElementException(&quot;etudiant not found with id: &quot; + id);</span>
+        }
     }
 
     @Override
     public void deleteById(long id) {
-<span class="fc" id="L32">        repo.deleteById(id);</span>
-<span class="fc" id="L33">    }</span>
+<span class="nc" id="L40">        repo.deleteById(id);</span>
+<span class="nc" id="L41">    }</span>
 
     @Override
     public void delete(Etudiant e) {
-<span class="fc" id="L37">        repo.delete(e);</span>
-<span class="fc" id="L38">    }</span>
+<span class="nc" id="L45">        repo.delete(e);</span>
+<span class="nc" id="L46">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -23,10 +23,10 @@ import org.springframework.context.annotation.Configuration;
     }
 
     public Contact contactAPI() {
-<span class="nc" id="L26">        Contact contact = new Contact().name(&quot;Sirine NAIFAR&quot;)</span>
+<span class="nc" id="L26">        return new Contact().name(&quot;Sirine NAIFAR&quot;)</span>
 <span class="nc" id="L27">                .email(&quot;sirine.naifer@esprit.tn&quot;)</span>
 <span class="nc" id="L28">                .url(&quot;https://www.linkedin.com/in/sirinenaifar/&quot;);</span>
-<span class="nc" id="L29">        return contact;</span>
+
     }
 
     @Bean

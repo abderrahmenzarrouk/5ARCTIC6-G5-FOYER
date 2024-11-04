@@ -1,0 +1,47 @@
+package tn.esprit.spring.Services.Etudiant;
+
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+import tn.esprit.spring.dao.entities.Etudiant;
+import tn.esprit.spring.dao.repositories.EtudiantRepository;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+@Service
+@AllArgsConstructor
+public class EtudiantService implements IEtudiantService {
+    EtudiantRepository repo;
+
+    @Override
+    public Etudiant addOrUpdate(Etudiant e) {
+        return repo.save(e);
+    }
+
+    @Override
+    public List<Etudiant> findAll() {
+        return repo.findAll();
+    }
+
+    @Override
+    public Etudiant findById(long id) {
+
+        Optional<Etudiant> e = repo.findById(id);
+        if (e.isPresent()) {
+            return e.get();
+        } else {
+            throw new NoSuchElementException("etudiant not found with id: " + id);
+        }
+    }
+
+    @Override
+    public void deleteById(long id) {
+        repo.deleteById(id);
+    }
+
+    @Override
+    public void delete(Etudiant e) {
+        repo.delete(e);
+    }
+}
