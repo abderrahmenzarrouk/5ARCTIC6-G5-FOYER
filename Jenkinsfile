@@ -105,7 +105,17 @@ pipeline {
 
         }
 
+        stage('Run Docker Compose') {
+            steps {
+                script {
+                    env.DOCKER_USER = DOCKER_USER
+                    env.APP_NAME = APP_NAME
+                    env.IMAGE_TAG = IMAGE_TAG
 
+                    sh 'docker-compose up -d'
+                }
+            }
+        }
 
     }
 
