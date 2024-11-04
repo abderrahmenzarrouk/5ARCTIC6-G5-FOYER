@@ -17,6 +17,23 @@
         <java.version>17</java.version>
         <sonar.jacoco.reportPaths>target/jacoco.exec</sonar.jacoco.reportPaths>
     </properties>
+    <repositories>
+        <repository>
+            <id>maven-releases</id>
+            <name>maven-releases</name>
+            <url>http://192.168.100.203:8081/repository/maven-releases/</url>
+        </repository>
+    </repositories>
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <url>http://192.168.100.203:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>http://192.168.100.203:8081/repository/maven-releases/</url>
+        </snapshotRepository>
+    </distributionManagement>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
