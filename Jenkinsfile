@@ -64,4 +64,28 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'dockre') {
-                        sh 'docker push alaselmi/dev
+                        sh 'docker push alaselmi/devops:latest'
+                    }
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Déploiement en cours...'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline terminé.'
+        }
+        success {
+            echo 'Le build a réussi.'
+        }
+        failure {
+            echo 'Le build a échoué.'
+        }
+    }
+}
