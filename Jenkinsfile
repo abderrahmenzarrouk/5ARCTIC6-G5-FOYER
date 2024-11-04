@@ -72,6 +72,15 @@ pipeline {
             }
 
         }
+
+        stage("Deploy to nexus") {
+            steps {
+                configFileProvider([configFile(fileId: 'aa9ada95-732f-4098-afa1-f4e3a252cb35', variable: 'mavensettings')]) {
+                    sh "mvn -s $mmavensettings clean deploy"
+                }
+            }
+        }
+
     }
 
     post {
