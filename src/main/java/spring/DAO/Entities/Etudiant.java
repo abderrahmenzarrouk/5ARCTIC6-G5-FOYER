@@ -1,4 +1,4 @@
-package spring.DAO.Entities;
+package tn.esprit.spring.DAO.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,7 +27,7 @@ public class Etudiant implements Serializable {
     String ecole;
     LocalDate dateNaissance;
     @ManyToMany(mappedBy = "etudiants")
-    private List<Reservation> reservations= new ArrayList<>();
+    List<Reservation> reservations= new ArrayList<>();
 
 
 }

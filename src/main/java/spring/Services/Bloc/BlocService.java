@@ -1,4 +1,4 @@
-package spring.Services.Bloc;
+package tn.esprit.spring.Services.Bloc;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,8 +11,6 @@ import tn.esprit.spring.DAO.Repositories.FoyerRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -50,12 +48,7 @@ public class BlocService implements IBlocService {
 
     @Override
     public Bloc findById(long id) {
-         Optional<Bloc> optionalBloc = repo.findById(id);
-        if (optionalBloc.isPresent()) {
-            return optionalBloc.get();
-        } else {
-            throw new NoSuchElementException("Chambre not found with id: " + id);
-        }
+        return repo.findById(id).get();
     }
 
     @Override
@@ -81,7 +74,9 @@ public class BlocService implements IBlocService {
             Chambre chambre=chambreRepository.findByNumeroChambre(nu);
             chambres.add(chambre);
         }
-
+        // Keyword (2ème méthode)
+        //chambres=chambreRepository.findAllByNumeroChambre(numChambre);
+        //2 Parent==>Chambre  Child==> Bloc
         for (Chambre cha : chambres) {
             //3 On affecte le child au parent
                 cha.setBloc(b);

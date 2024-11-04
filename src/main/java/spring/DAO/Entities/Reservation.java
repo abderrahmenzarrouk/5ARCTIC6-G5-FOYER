@@ -1,4 +1,4 @@
-package spring.DAO.Entities;
+package tn.esprit.spring.DAO.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -25,6 +25,6 @@ public class Reservation implements Serializable {
     boolean estValide;
     @ManyToMany
     @JsonIgnore
-    private List<Etudiant> etudiants = new ArrayList<>();
+    List<Etudiant> etudiants = new ArrayList<>();
 
 }

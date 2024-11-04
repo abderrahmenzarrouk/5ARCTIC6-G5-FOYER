@@ -1,15 +1,13 @@
-package spring.Services.Universite;
+package tn.esprit.spring.Services.Universite;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import tn.esprit.spring.DAO.Entities.Foyer;
 import tn.esprit.spring.DAO.Entities.Universite;
-
+import tn.esprit.spring.DAO.Repositories.FoyerRepository;
 import tn.esprit.spring.DAO.Repositories.UniversiteRepository;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -28,13 +26,7 @@ public class UniversiteService implements IUniversiteService {
 
     @Override
     public Universite findById(long id) {
-
-        Optional<Universite> u =  repo.findById(id);
-        if (u.isPresent()) {
-            return u.get();
-        } else {
-            throw new NoSuchElementException("universite not found with id: " + id);
-        }
+        return repo.findById(id).get();
     }
 
     @Override

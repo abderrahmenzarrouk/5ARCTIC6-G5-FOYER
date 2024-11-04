@@ -1,16 +1,14 @@
-package spring.Services.Foyer;
+package tn.esprit.spring.Services.Foyer;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.DAO.Entities.*;
 import tn.esprit.spring.DAO.Repositories.BlocRepository;
-
+import tn.esprit.spring.DAO.Repositories.EtudiantRepository;
 import tn.esprit.spring.DAO.Repositories.FoyerRepository;
 import tn.esprit.spring.DAO.Repositories.UniversiteRepository;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -31,13 +29,7 @@ public class FoyerService implements IFoyerService {
 
     @Override
     public Foyer findById(long id) {
-
-        Optional<Foyer> f = repo.findById(id);
-        if (f.isPresent()) {
-            return f.get();
-        } else {
-            throw new NoSuchElementException("foyer not found with id: " + id);
-        }
+        return repo.findById(id).get();
     }
 
     @Override
@@ -85,7 +77,15 @@ public class FoyerService implements IFoyerService {
 
     @Override
     public Foyer ajoutFoyerEtBlocs(Foyer foyer) {
-
+        //Foyer child / Bloc parent
+        //Objet foyer = attribut objet foyer + les blocs associés
+//        Foyer f = repo.save(foyer);
+//        for (Bloc b : foyer.getBlocs()) {
+//            b.setFoyer(f);
+//            blocRepository.save(b);
+//        }
+//        return f;
+        //-----------------------------------------
         List<Bloc> blocs = foyer.getBlocs();
         foyer = repo.save(foyer);
         for (Bloc b : blocs) {

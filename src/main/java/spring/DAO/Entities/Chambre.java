@@ -1,4 +1,4 @@
-package spring.DAO.Entities;
+package tn.esprit.spring.DAO.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -29,6 +29,6 @@ public class Chambre implements Serializable {
     @JsonIgnore
     Bloc bloc;
     @OneToMany
-    private List<Reservation> reservations= new ArrayList<>();
+    List<Reservation> reservations= new ArrayList<>();
 
 }

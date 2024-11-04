@@ -1,4 +1,4 @@
-package spring.DAO.Entities;
+package tn.esprit.spring.DAO.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,5 +25,5 @@ public class Foyer implements Serializable {
     @OneToOne(mappedBy = "foyer")
     Universite universite;
     @OneToMany(mappedBy = "foyer")
-    private List<Bloc> blocs= new ArrayList<>();
+    List<Bloc> blocs= new ArrayList<>();
 }

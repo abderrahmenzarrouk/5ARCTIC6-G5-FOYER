@@ -1,4 +1,4 @@
-package spring.DAO.Entities;
+package tn.esprit.spring.DAO.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -28,5 +28,5 @@ public class Bloc implements Serializable {
     Foyer foyer;
     @OneToMany(mappedBy = "bloc", fetch = FetchType.EAGER)
     @JsonIgnore
-    private List<Chambre> chambres= new ArrayList<>();
+    List<Chambre> chambres= new ArrayList<>();
 }
