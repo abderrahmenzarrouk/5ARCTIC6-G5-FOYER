@@ -13,6 +13,32 @@ pipeline {
     }
 
     stages {
+
+            stage('Check and Start Containers') {
+                steps {
+                    script {
+                        def nexusContainer = 'nexus'
+                        def sonarqubeContainer = 'sonarqube'
+                        def nexusRunning = sh(script: "docker ps -q -f name=${nexusContainer}", returnStdout: true).trim()
+                        def sonarqubeRunning = sh(script: "docker ps -q -f name=${sonarqubeContainer}", returnStdout: true).trim()
+
+                        if (!nexusRunning) {
+                            echo 'Starting Nexus container...'
+                            sh "docker run -d --name nexus -p 8081:8081 -v nexus_data:/nexus-data --restart always sonatype/nexus3"
+                        } else {
+                            echo 'Nexus container is already running.'
+                        }
+
+                        if (!sonarqubeRunning) {
+                            echo 'Starting SonarQube container...'
+                            sh "docker run -d --name sonarqube -p 9000:9000 --restart always sonarqube"
+                        } else {
+                            echo 'SonarQube container is already running.'
+                        }
+                    }
+                }
+            }
+
         stage('Checkout') {
             steps {
                 echo 'Cloning GitHub repository...'
