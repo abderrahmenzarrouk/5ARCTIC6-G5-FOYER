@@ -19,19 +19,19 @@
     </properties>
     <repositories>
         <repository>
-            <id>maven-releases</id>
+            <id>deploymentRepo</id>
             <name>maven-releases</name>
             <url>http://192.168.100.203:8081/repository/maven-releases/</url>
         </repository>
     </repositories>
     <distributionManagement>
         <repository>
-            <id>nexus-releases</id>
+            <id>deploymentRepo</id>
             <url>http://192.168.100.203:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <url>http://192.168.100.203:8081/repository/maven-releases/</url>
+            <id>deploymentRepo</id>
+            <url>http://192.168.100.203:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
     <dependencies>
