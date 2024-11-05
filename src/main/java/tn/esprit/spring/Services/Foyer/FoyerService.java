@@ -9,7 +9,6 @@ import tn.esprit.spring.dao.repositories.FoyerRepository;
 import tn.esprit.spring.dao.repositories.UniversiteRepository;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -31,13 +30,7 @@ public class FoyerService implements IFoyerService {
 
     @Override
     public Foyer findById(long id) {
-
-        Optional<Foyer> f = repo.findById(id);
-        if (f.isPresent()) {
-            return f.get();
-        } else {
-            throw new NoSuchElementException("foyer not found with id: " + id);
-        }
+        return repo.findById(id).orElse(null);
     }
 
     @Override

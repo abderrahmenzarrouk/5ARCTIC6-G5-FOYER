@@ -1,3 +1,2 @@
-tn\esprit\spring\FoyerApplication.class
-tn\esprit\spring\Services\Foyer\FoyerServiceTest.class
-tn\esprit\spring\Services\Foyer\FoyerServiceTestUnitaire.class
+tn\esprit\spring\FoyerServiceIntegrationTest.class
+tn\esprit\spring\FoyerServiceTest.class

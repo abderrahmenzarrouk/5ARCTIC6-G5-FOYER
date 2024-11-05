@@ -1,14 +1,14 @@
-# Utiliser l'image de base officielle de Java
+# Utiliser une image de base Java
 FROM openjdk:17-jdk-alpine
 
-# Créer un répertoire pour l'application
+# Définir le répertoire de travail
 WORKDIR /app
 
-# Copier le fichier jar généré par Maven dans l'image Docker
-COPY target/*.jar app.jar
+# Copier le fichier JAR dans l'image
+COPY target/Foyer-0.0.1-SNAPSHOT.jar app.jar
 
-# Exposer le port que l'application va utiliser
-EXPOSE 8080
+# Exposer le port que l'application écoute
+EXPOSE 8089
 
-# Démarrer l'application
+# Commande pour exécuter l'application
 ENTRYPOINT ["java", "-jar", "app.jar"]

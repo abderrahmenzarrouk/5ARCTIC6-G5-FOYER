@@ -1,30 +1,35 @@
-version: '3.7'
+version: '3.8'
 
 services:
-  sonarqube:
-    image: sonarqube:8.9.7-community
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: foyer
     ports:
-      - "9000:9000"
-    environment:
-      - SONAR_JDBC_URL=jdbc:postgresql://db:5432/sonar
-      - SONAR_JDBC_USERNAME=sonar
-      - SONAR_JDBC_PASSWORD=sonar
+      - "3308:3306"
     volumes:
-      - sonarqube_data:/opt/sonarqube/data
-      - sonarqube_logs:/opt/sonarqube/logs
-      - sonarqube_extensions:/opt/sonarqube/extensions
+      - mysql_data:/var/lib/mysql
+    networks:
+      - ala-network
 
-  db:
-    image: postgres:latest
+  springboot:
+    build: .
+    depends_on:
+      - mysql
+    command: ["./wait-for-it.sh", "mysql:3306", "java", "-jar", "app.jar"]
     environment:
-      - POSTGRES_USER=sonar
-      - POSTGRES_PASSWORD=sonar
-      - POSTGRES_DB=sonar
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/foyer?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - "8089:8089"
+    networks:
+      - ala-network
+
+
+networks:
+  ala-network:
 
 volumes:
-  sonarqube_data:
-  sonarqube_logs:
-  sonarqube_extensions:
-  postgres_data:
+  mysql_data:
