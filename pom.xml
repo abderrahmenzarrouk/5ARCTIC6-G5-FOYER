@@ -19,6 +19,7 @@
         <sonar.host.url>http://192.168.12.148:9000</sonar.host.url>
         <sonar.login>son</sonar.login> <!-- Remplacez par votre token -->
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -90,6 +91,12 @@
             <version>2.0.0</version>
         </dependency>
     </dependencies>
+    <distributionManagement>
+        <repository>
+            <id>deploymentRepo</id> <!-- Correspond à l'id dans settings.xml -->
+            <url>http://192.168.12.148:8082/repository/y-maven-repo/</url>
+        </repository>
+    </distributionManagement>
 
     <build>
         <plugins>
