@@ -1,6 +1,7 @@
 package tn.esprit.spring.RestControllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import tn.esprit.spring.DAO.Entities.Etudiant;
@@ -15,9 +16,14 @@ import java.util.List;
 public class EtudiantRestController {
     IEtudiantService service;
 
+    @GetMapping("health")
+    public ResponseEntity<String> healthCheck() {
+        return ResponseEntity.ok("Spring Boot container is working!");
+    }
     @PostMapping("addOrUpdate")
-    Etudiant addOrUpdate(@RequestBody Etudiant e) {
-        return service.addOrUpdate(e);
+    public ResponseEntity<Etudiant> addOrUpdate(@RequestBody Etudiant e) {
+        Etudiant savedEtudiant = service.addOrUpdate(e);
+        return ResponseEntity.ok(savedEtudiant);
     }
 
     @GetMapping("findAll")
