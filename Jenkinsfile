@@ -112,7 +112,7 @@ pipeline {
                     env.APP_NAME = APP_NAME
                     env.IMAGE_TAG = IMAGE_TAG
 
-                    sh 'docker-compose up -d'
+                    sh 'docker-compose up -d --remove-orphans'
                 }
             }
         }
