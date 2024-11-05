@@ -138,9 +138,9 @@
 
     <repositories>
         <repository>
-            <id>deploymentRepo</id>
-            <name>y-maven-repo</name>
-            <url>http://192.168.12.148:8082/repository/y-maven-repo/</url>
+            <id>maven-snapshots</id>
+            <name>maven-snapshots</name>
+            <url>http://192.168.12.148:8082/repository/maven-snapshots/</url>
         </repository>
     </repositories>
 </project>
