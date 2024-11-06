@@ -43,7 +43,7 @@ public class EtudiantRestController {
         service.delete(e);
     }
 
-    @DeleteMapping("deleteByIdd")
+    @DeleteMapping("deleteById")
     void deleteById(@RequestParam long id) {
         service.deleteById(id);
     }
