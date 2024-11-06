@@ -1,15 +1,14 @@
-# Utiliser une image de base Java
-FROM openjdk:17-jdk-alpine
+# Use a more stable image for ARM64 support
+FROM --platform=linux/arm64 openjdk:17-jdk-slim
 
-# Définir le répertoire de travail
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copier le fichier JAR dans l'image .
+# Copy the pre-built JAR file into the image
 COPY target/Foyer-0.0.1-SNAPSHOT.jar app.jar
 
-# Exposer le port que l'application écoute
+# Expose the application port
 EXPOSE 8089
 
-# Commande pour exécuter l'application
+# Command to run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
-
