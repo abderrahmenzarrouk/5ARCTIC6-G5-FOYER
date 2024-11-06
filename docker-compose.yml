@@ -13,6 +13,14 @@ services:
     ports:
       - "3306:3306"
 
+  mysqld-exporter:
+    image: prom/mysqld-exporter
+    container_name: mysqld-exporter
+    environment:
+      - DATA_SOURCE_NAME=root:root@(mysql-db:3306)/foyer
+    ports:
+      - "9104:9104"
+
   springboot-app:
     image: ${DOCKER_USER}/projetdevops:${IMAGE_TAG}
     container_name: springboot-app
