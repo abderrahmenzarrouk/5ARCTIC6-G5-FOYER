@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.7
+    platform: linux/amd64
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: foyer
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  mysqld-exporter:
+    image: prom/mysqld-exporter
+    platform: linux/amd64
+    container_name: mysqld-exporter
+    environment:
+      - DATA_SOURCE_NAME=root:root@(mysql-db:3306)/foyer
+    ports:
+      - "9104:9104"
+
+  springboot-app:
+    image: fourat02/foyer:foufou
+    platform: linux/amd64
+    container_name: springboot-app
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/foyer?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      - mysql
+    ports:
+      - "8082:8080"
+
+volumes:
+  mysql_data:
