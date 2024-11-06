@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import tn.esprit.spring.DAO.Entities.Etudiant;
 
+import tn.esprit.spring.DAO.Repositories.EtudiantRepository;
 import tn.esprit.spring.Services.Etudiant.IEtudiantService;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class EtudiantRestController {
     IEtudiantService service;
+    EtudiantRepository erp;
 
     @GetMapping("health")
     public ResponseEntity<String> healthCheck() {
@@ -22,13 +24,13 @@ public class EtudiantRestController {
     }
     @PostMapping("addOrUpdate")
     public ResponseEntity<Etudiant> addOrUpdate(@RequestBody Etudiant e) {
-        Etudiant savedEtudiant = service.addOrUpdate(e);
+        Etudiant savedEtudiant = erp.save(e);
         return ResponseEntity.ok(savedEtudiant);
     }
 
     @GetMapping("findAll")
     List<Etudiant> findAll() {
-        return service.findAll();
+        return erp.findAll();
     }
 
     @GetMapping("findById")
