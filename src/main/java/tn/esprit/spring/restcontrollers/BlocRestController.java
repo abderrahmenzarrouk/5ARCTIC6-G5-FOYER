@@ -8,7 +8,7 @@ import tn.esprit.spring.Services.Bloc.IBlocService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/bloc")
+@RequestMapping("bloc")
 @AllArgsConstructor
 public class BlocRestController {
     IBlocService service;
