@@ -1,14 +1,14 @@
-# Use a more stable image for ARM64 support
-FROM --platform=linux/arm64 openjdk:17-jdk-slim
+# Use an official OpenJDK runtime as a parent image
+FROM openjdk:17-jdk-slim
 
-# Set the working directory inside the container
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy the pre-built JAR file into the image
-COPY target/Foyer-0.0.1-SNAPSHOT.jar app.jar
+# Copy the built JAR file into the container
+COPY target/*.jar app.jar
 
-# Expose the application port
-EXPOSE 8089
+# Expose the application port (change if your app runs on a different port)
+EXPOSE 8080
 
-# Command to run the application
+# Run the JAR file
 ENTRYPOINT ["java", "-jar", "app.jar"]
